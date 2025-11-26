@@ -45,15 +45,16 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # <-- after SecurityMiddleware
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = 'climate_assistant.urls'
 
@@ -137,12 +138,24 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = "static/"
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
 STATIC_URL = "/static/"
+
+# Where collectstatic will place all static files for production
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [
-    BASE_DIR / "ui" / "static",  # <--- this line is crucial
-]
+
+# We can REMOVE STATICFILES_DIRS for now:
+# Django will automatically look in <app>/static/ for each installed app.
+# So make sure your files are at: ui/static/ui/main.css and ui/static/ui/main.js
+# STATICFILES_DIRS = [
+#     BASE_DIR / "ui" / "static",
+# ]
+
+# WhiteNoise static file storage (hashed filenames, compression, caching)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # During deploy, collect static files here
  
