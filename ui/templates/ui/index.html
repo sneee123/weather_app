@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Climate Assistant – Weather Search</title>
+  <link rel="stylesheet" href="{% static 'ui/main.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <h1>Climate Assistant</h1>
+    <p>Search a city and get live weather, precautions, and activity suggestions.</p>
+  </header>
+
+  <main>
+    <form id="search-form" class="search-form">
+      <input
+        id="city-input"
+        type="text"
+        placeholder="Enter city name (e.g., Mumbai)"
+        autocomplete="off"
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="status" class="status"></div>
+
+    <section id="result" class="result hidden">
+      <div class="card">
+        <div class="card-header">
+          <h2 id="city-name"></h2>
+          <p id="country"></p>
+          <p id="coords" class="coords"></p>
+          <span id="source-badge" class="badge"></span>
+        </div>
+
+        <div class="card-main">
+          <div class="temp-block">
+            <span id="temp" class="temp"></span>
+            <span id="feels-like" class="feels-like"></span>
+            <span id="description" class="description"></span>
+          </div>
+          <div class="icon-block">
+            <img id="icon" alt="Weather icon" />
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="item">
+            <span class="label">Humidity</span>
+            <span id="humidity" class="value"></span>
+          </div>
+          <div class="item">
+            <span class="label">Pressure</span>
+            <span id="pressure" class="value"></span>
+          </div>
+          <div class="item">
+            <span class="label">Cloudiness</span>
+            <span id="cloudiness" class="value"></span>
+          </div>
+          <div class="item">
+            <span class="label">Wind</span>
+            <span id="wind" class="value"></span>
+          </div>
+          <div class="item">
+            <span class="label">Sunrise (UTC)</span>
+            <span id="sunrise" class="value"></span>
+          </div>
+          <div class="item">
+            <span class="label">Sunset (UTC)</span>
+            <span id="sunset" class="value"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="advice-card" class="advice-card">
+        <h3>Suggestions & Precautions</h3>
+        <p id="advice-summary" class="advice-summary"></p>
+
+        <div class="advice-grid">
+          <div class="advice-column">
+            <h4>Precautions</h4>
+            <ul id="precautions-list"></ul>
+          </div>
+          <div class="advice-column">
+            <h4>Places to Avoid Nearby</h4>
+            <ul id="avoid-list"></ul>
+          </div>
+          <div class="advice-column">
+            <h4>Good Places & Activities</h4>
+            <ul id="recommend-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <details class="raw-details">
+        <summary>View raw provider data</summary>
+        <pre id="raw-json"></pre>
+      </details>
+    </section>
+  </main>
+</div>
+
+<script src="{% static 'ui/main.js' %}"></script>
+</body>
+</html>
